@@ -4,7 +4,7 @@
 	<test name="Test1">
 		<parameter name="path" value="/"/>
 		<classes>
-		    <class name="php4dvd.test.HomePageTest"/>
+		    <class name="ru.st.selenium.tests.SearchFilmTest"/>
 		</classes>
 	</test>  
 </suite>

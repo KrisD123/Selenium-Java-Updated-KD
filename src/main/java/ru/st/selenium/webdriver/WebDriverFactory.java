@@ -8,22 +8,17 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
-import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
-import org.openqa.selenium.safari.SafariDriver;
 
 import ru.st.selenium.util.Browser;
-import ru.st.selenium.webdriver.AuthenticatedHtmlUnitDriver;
 
-import ru.st.selenium.util.Browser;
 
 /*
  * Factory to instantiate a WebDriver object. It returns an instance of the driver (local invocation) or an instance of RemoteWebDriver
  * 
- * @author Sebastiano Armeli-Battana
  */
 public class WebDriverFactory {
 
@@ -31,7 +26,6 @@ public class WebDriverFactory {
 	public static final String CHROME = "chrome";
 	public static final String FIREFOX = "firefox";
 	public static final String INTERNET_EXPLORER = "ie";
-	public static final String HTML_UNIT = "htmlunit";
 
 	/* Platform constants */
 	public static final String WINDOWS = "windows";
@@ -92,20 +86,6 @@ public class WebDriverFactory {
 			.setCapability(
 					InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS,
 					true);
-		} else if (SAFARI.equals(browserName)) {
-			capability = DesiredCapabilities.safari();
-		} else {
-
-			capability = DesiredCapabilities.htmlUnit();
-			// HTMLunit Check
-			if (username != null && password != null) {
-				webDriver = (HtmlUnitDriver) AuthenticatedHtmlUnitDriver
-						.create(username, password);
-			} else {
-				webDriver = new HtmlUnitDriver(true);
-			}
-
-			return webDriver;
 		}
 
 		capability = setVersionAndPlatform(capability, browser.getVersion(),
@@ -157,20 +137,8 @@ public class WebDriverFactory {
 		} else if (INTERNET_EXPLORER.equals(browser)) {
 			webDriver = new InternetExplorerDriver();
 
-		} else if (SAFARI.equals(browser)) {
-			webDriver = new SafariDriver();
-
-		} else {
-
-			// HTMLunit Check
-			if (username != null && password != null) {
-				webDriver = (HtmlUnitDriver) AuthenticatedHtmlUnitDriver
-						.create(username, password);
-			} else {
-				webDriver = new HtmlUnitDriver(true);
-			}
 		}
-
+		
 		return webDriver;
 	}
 
